@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<SplitPane dividerPositions="0.25" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1">
+  <items>
+      <VBox fx:id="menuVBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="20.0" spacing="20.0">
+         <children>
+            <ComboBox fx:id="countyNameComboBox" prefHeight="25.0" prefWidth="200.0" promptText="County Name">
+               <VBox.margin>
+                  <Insets top="80.0" />
+               </VBox.margin>
+            </ComboBox>
+            <ComboBox id="geographicalLocaleComboBox" fx:id="geographicalLocaleComboBox" prefHeight="25.0" prefWidth="200.0" promptText="Geographical Locale" />
+            <ComboBox id="gradeLevelComboBox" fx:id="gradeLevelComboBox" prefHeight="25.0" prefWidth="200.0" promptText="Grade Level" />
+            <Button fx:id="searchButton" mnemonicParsing="false" text="Search" />
+         </children>
+      </VBox>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+  </items>
+</SplitPane>
