@@ -1,5 +1,13 @@
 package csm.cis255.cis255_projectfour;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
 /**
  *
  */
@@ -8,8 +16,8 @@ public class DistrictArea implements Comparable<DistrictArea> {
     // Data from https://data.ca.gov/dataset/california-school-district-areas-2023-24
 
     int id;
-    private String federalID;
-    private String districtCode;
+    private int federalID;
+    private int districtCode;
     private String countyName;
     private String districtName;
     private String districtType;
@@ -61,7 +69,9 @@ public class DistrictArea implements Comparable<DistrictArea> {
     private int enrollmentSocioeconomicallyDisadvantaged;
     private double enrollmentSocioeconomicallyDisadvantagedPercentage;
 
-    public DistrictArea(int id, String federalID, String districtCode, String countyName, String districtName, String districtType,
+    public static List<DistrictArea> districtAreaList = new ArrayList<>();
+
+    public DistrictArea(int id, int federalID, int districtCode, String countyName, String districtName, String districtType,
                         GradeLevel gradeLevel, GeographicalLocale geographicalLocale, int enrollmentTotal, int enrollmentCharter,
                         int enrollmentNonCharter, int enrollmentAfricanAmerican, double enrollmentAfricanAmericanPercentage,
                         int enrollmentAmericanIndian, double enrollmentAmericanIndianPercentage, int enrollmentAsian,
@@ -114,7 +124,206 @@ public class DistrictArea implements Comparable<DistrictArea> {
         this.enrollmentSocioeconomicallyDisadvantagedPercentage = enrollmentSocioeconomicallyDisadvantagedPercentage;
     }
 
-    // TODO Write getters and setters (validity checking + explain ommitted ones)
+    // Testing purposes only!
+    public DistrictArea() {
+        this.id = 1;
+        this.federalID = 12;
+        this.districtCode = 12;
+        this.countyName = "asd";
+        this.districtName = "asd";
+        this.districtType = "asd";
+        this.gradeLevel = GradeLevel.K_THRU_12;
+        this.geographicalLocale = GeographicalLocale.CITY_LARGE;
+        this.enrollmentTotal = 1212;
+        this.enrollmentCharter = 123;
+        this.enrollmentNonCharter = 12312;
+        this.enrollmentAfricanAmerican = 12;
+        this.enrollmentAfricanAmericanPercentage = 1;
+        this.enrollmentAmericanIndian = 12;
+        this.enrollmentAmericanIndianPercentage = 1;
+        this.enrollmentAsian = 12;
+        this.enrollmentAsianPercentage = 1;
+        this.enrollmentFilipino = 12;
+        this.enrollmentFilipinoPercentage = 1;
+        this.enrollmentHispanic = 12;
+        this.enrollmentHispanicPercentage = 1;
+        this.enrollmentPacificIslander = 12;
+        this.enrollmentPacificIslanderPercentage = 1;
+        this.enrollmentWhite = 12;
+        this.enrollmentWhitePercentage = 1;
+        this.enrollmentMultiracial = 12;
+        this.enrollmentMultiracialPercentage = 1;
+        this.enrollmentEnglishLearners = 12;
+        this.enrollmentEnglishLearnersPercentage = 1;
+        this.enrollmentFoster = 12;
+        this.enrollmentFosterPercentage = 1;
+        this.enrollmentHomeless = 12;
+        this.enrollmentHomelessPercentage = 1;
+        this.enrollmentMigrants = 12;
+        this.enrollmentMigrantsPercentage = 1;
+        this.enrollmentWithDisabilities = 12;
+        this.enrollmentWithDisabilitiesPercentage = 1;
+        this.enrollmentSocioeconomicallyDisadvantaged = 12;
+        this.enrollmentSocioeconomicallyDisadvantagedPercentage = 1;
+    }
+
+    public static void fillListAndMap() {
+        try (Scanner fileScanner = new Scanner(new FileReader(
+                "DistrictAreasDoubles.csv"
+        ))) {
+            // Print a message in console indicating a successful load of the data file
+            System.out.println("Successfully loaded DistrictAreas.csv file");
+
+            // Set up the mechanics of obtaining data from the file
+            String line;
+            while (fileScanner.hasNext()) { // Go until there is data in the source file
+                line = fileScanner.nextLine(); // Obtain one line of data
+
+                // Assuming we have perfectly formatted data
+                Scanner lineScanner = new Scanner(line);
+
+                lineScanner.useDelimiter(",");
+
+                // Write the data from the file into a single object instance
+                int id = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int federalId = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int districtCode = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                String countyName = lineScanner.next();
+                String districtName = lineScanner.next();
+                String districtType = lineScanner.next();
+                GradeLevel gradeLevel12 = GradeLevel.EIGHT_THRU_12;
+                GeographicalLocale geographicalLocale1 = GeographicalLocale.CITY_LARGE;
+                lineScanner.next();
+                lineScanner.next();
+                lineScanner.next();
+                int enrollmentTotal = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentCharter = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentNonCharter = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentAfricanAmerican = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                double enrollmentAfricanAmericanPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentAmericanIndian = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                double enrollmentAmericanIndianPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentAsian = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                double enrollmentAsianPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentFilipino = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                double enrollmentFilipinoPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentHispanic = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                double enrollmentHispanicPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentPacificIslander = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                double enrollmentPacificIslanderPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentWhite = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                double enrollmentWhitePercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentMultiracial = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                double enrollmentMultiracialPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentEnglishLearners = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                double enrollmentEnglishLearnersPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentFoster = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                double enrollmentFosterPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentHomeless = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                double enrollmentHomelessPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentMigrants = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                double enrollmentMigrantsPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentWithDisabilities = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                double enrollmentWithDisabilitiesPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentSocioeconomicallyDisadvantaged = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                double enrollmentSocioeconomicallyDisadvantagedPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+                DistrictArea districtArea = new DistrictArea(
+                        id, federalId, districtCode, countyName, districtName, districtType, gradeLevel12,
+                        geographicalLocale1, enrollmentTotal, enrollmentCharter, enrollmentNonCharter, enrollmentAfricanAmerican,
+                        enrollmentAfricanAmericanPercentage, enrollmentAmericanIndian, enrollmentAmericanIndianPercentage, enrollmentAsian,
+                        enrollmentAsianPercentage, enrollmentFilipino, enrollmentFilipinoPercentage, enrollmentHispanic,
+                        enrollmentHispanicPercentage, enrollmentPacificIslander, enrollmentPacificIslanderPercentage, enrollmentWhite, enrollmentWhitePercentage,
+                        enrollmentMultiracial, enrollmentMultiracialPercentage, enrollmentEnglishLearners, enrollmentEnglishLearnersPercentage, enrollmentFoster,
+                        enrollmentFosterPercentage, enrollmentHomeless, enrollmentHomelessPercentage, enrollmentMigrants, enrollmentMigrantsPercentage, enrollmentWithDisabilities,
+                        enrollmentWithDisabilitiesPercentage, enrollmentSocioeconomicallyDisadvantaged, enrollmentSocioeconomicallyDisadvantagedPercentage
+                );
+                System.out.println(districtArea);
+//                DistrictArea districtArea = new DistrictArea(
+//                        lineScanner.nextInt(), lineScanner.nextInt(), lineScanner.nextInt(), lineScanner.nextLine(), lineScanner.nextLine(),
+//                        lineScanner.nextLine(), GradeLevel.K_THRU_5, GeographicalLocale.CITY_LARGE, lineScanner.nextInt(), lineScanner.nextInt(),
+//                        lineScanner.nextInt(), lineScanner.nextInt(), lineScanner.nextDouble(), lineScanner.nextInt(), lineScanner.nextDouble(),
+//                        lineScanner.nextInt(), lineScanner.nextDouble(), lineScanner.nextInt(), lineScanner.nextDouble(),
+//                        lineScanner.nextInt(), lineScanner.nextDouble(), lineScanner.nextInt(), lineScanner.nextDouble(),
+//                        lineScanner.nextInt(), lineScanner.nextDouble(), lineScanner.nextInt(), lineScanner.nextDouble(),
+//                        lineScanner.nextInt(), lineScanner.nextDouble(), lineScanner.nextInt(), lineScanner.nextDouble(),
+//                        lineScanner.nextInt(), lineScanner.nextDouble(), lineScanner.nextInt(), lineScanner.nextDouble(),
+//                        lineScanner.nextInt(), lineScanner.nextDouble(), lineScanner.nextInt(), lineScanner.nextDouble()
+//                );
+
+                // Add the District Area to the list (districtAreaList)
+                districtAreaList.add(districtArea);
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // TODO Write getters and setters (validity checking + explain omitted ones)
+
+
+    @Override
+    public String toString() {
+        return "District Name: " + districtName + "\t\tDistrict Type: " + districtType + "\t\tCounty Name: " + countyName + "\n" +
+                "Grade Level: " + gradeLevel + "\t\tGeographical Locale: " + geographicalLocale + "\n" +
+                "District ID = " + id + "\t\tDistrict Federal ID = " + federalID + "\t\tDistrict Code = " + districtCode + "\n" +
+                "Total Enrollment: " + enrollmentTotal + "\t\tCharter Enrollment: " + enrollmentCharter + "\t\tNon Charter Enrollment: " + enrollmentNonCharter + "\n" +
+                "African American: " + enrollmentAfricanAmerican + "\t\tAfrican American (%): " + enrollmentAfricanAmericanPercentage + "\n" +
+                "American Indian: " + enrollmentAmericanIndian + "\t\tAmerican Indian (%): " + enrollmentAmericanIndianPercentage + "\n" +
+                "Asian: " + enrollmentAsian + "\t\tAsian (%): " + enrollmentAsianPercentage + "\n" +
+                "Filipino: " + enrollmentFilipino + "\t\tFilipino (%): " + enrollmentFilipinoPercentage + "\n" +
+                "Hispanic: " + enrollmentHispanic + "\t\tHispanic (%): " + enrollmentHispanicPercentage + "\n" +
+                "Pacific Islander: " + enrollmentPacificIslander + "\t\tPacific Islander(%): " + enrollmentPacificIslanderPercentage + "\n" +
+                "White: " + enrollmentWhite + "\t\tWhite(%): " + enrollmentWhite + "\n" +
+                "Multiracial: " + enrollmentMultiracial + "\t\tMultiracial (%): " + enrollmentMultiracialPercentage + "\n" +
+                "English Learner: " + enrollmentEnglishLearners + "\t\tEnglish Learner(%): " + enrollmentEnglishLearnersPercentage + "\n" +
+                "Foster: " + enrollmentFoster + "\t\tFoster (%): " + enrollmentFosterPercentage + "\n" +
+                "Homeless: " + enrollmentHomeless + "\t\tHomeless (%): " + enrollmentHomelessPercentage + "\n" +
+                "Migrant: " + enrollmentMigrants + "\t\tMigrant (%): " + enrollmentMigrantsPercentage + "\n" +
+                "Socioeconomically Disadvantaged: " + enrollmentSocioeconomicallyDisadvantaged + "\t\tSocioeconomically Disadvantaged (%): " + enrollmentSocioeconomicallyDisadvantagedPercentage + "\n" +
+                "Students with Disabilities: " + enrollmentWithDisabilities + "\t\tStudent with Disabilities (%): " + enrollmentWithDisabilitiesPercentage;
+//        return "DistrictArea{" +
+//                "id=" + id +
+//                ", federalID=" + federalID +
+//                ", districtCode=" + districtCode +
+//                ", countyName='" + countyName + '\'' +
+//                ", districtName='" + districtName + '\'' +
+//                ", districtType='" + districtType + '\'' +
+//                ", gradeLevel=" + gradeLevel +
+//                ", geographicalLocale=" + geographicalLocale +
+//                ", enrollmentTotal=" + enrollmentTotal +
+//                ", enrollmentCharter=" + enrollmentCharter +
+//                ", enrollmentNonCharter=" + enrollmentNonCharter +
+//                ", enrollmentAfricanAmerican=" + enrollmentAfricanAmerican +
+//                ", enrollmentAfricanAmericanPercentage=" + enrollmentAfricanAmericanPercentage +
+//                ", enrollmentAmericanIndian=" + enrollmentAmericanIndian +
+//                ", enrollmentAmericanIndianPercentage=" + enrollmentAmericanIndianPercentage +
+//                ", enrollmentAsian=" + enrollmentAsian +
+//                ", enrollmentAsianPercentage=" + enrollmentAsianPercentage +
+//                ", enrollmentFilipino=" + enrollmentFilipino +
+//                ", enrollmentFilipinoPercentage=" + enrollmentFilipinoPercentage +
+//                ", enrollmentHispanic=" + enrollmentHispanic +
+//                ", enrollmentHispanicPercentage=" + enrollmentHispanicPercentage +
+//                ", enrollmentPacificIslander=" + enrollmentPacificIslander +
+//                ", enrollmentPacificIslanderPercentage=" + enrollmentPacificIslanderPercentage +
+//                ", enrollmentWhite=" + enrollmentWhite +
+//                ", enrollmentWhitePercentage=" + enrollmentWhitePercentage +
+//                ", enrollmentMultiracial=" + enrollmentMultiracial +
+//                ", enrollmentMultiracialPercentage=" + enrollmentMultiracialPercentage +
+//                ", enrollmentEnglishLearners=" + enrollmentEnglishLearners +
+//                ", enrollmentEnglishLearnersPercentage=" + enrollmentEnglishLearnersPercentage +
+//                ", enrollmentFoster=" + enrollmentFoster +
+//                ", enrollmentFosterPercentage=" + enrollmentFosterPercentage +
+//                ", enrollmentHomeless=" + enrollmentHomeless +
+//                ", enrollmentHomelessPercentage=" + enrollmentHomelessPercentage +
+//                ", enrollmentMigrants=" + enrollmentMigrants +
+//                ", enrollmentMigrantsPercentage=" + enrollmentMigrantsPercentage +
+//                ", enrollmentWithDisabilities=" + enrollmentWithDisabilities +
+//                ", enrollmentWithDisabilitiesPercentage=" + enrollmentWithDisabilitiesPercentage +
+//                ", enrollmentSocioeconomicallyDisadvantaged=" + enrollmentSocioeconomicallyDisadvantaged +
+//                ", enrollmentSocioeconomicallyDisadvantagedPercentage=" + enrollmentSocioeconomicallyDisadvantagedPercentage +
+//                '}';
+    }
 
     @Override
     public int compareTo(DistrictArea o) {
@@ -129,8 +338,8 @@ public class DistrictArea implements Comparable<DistrictArea> {
      */
     public static enum GradeLevel {
         K_THRU_12(0, 12, "K-12"),
-        K_THRU_6(0, 6, "K-6"),
         K_THRU_8(0, 8, "K-8"),
+        K_THRU_6(0, 6, "K-6"),
         K_THRU_5(0, 5, "K-5"),
         NINE_THRU_12(9, 12, "9-12"),
         EIGHT_THRU_12(8, 12, "8-12"),
