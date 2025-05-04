@@ -3,8 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.TextFlow?>
 
@@ -23,9 +23,10 @@
             <Button fx:id="resetButton" mnemonicParsing="false" text="Reset" />
          </children>
       </VBox>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-         <children>
+      <ScrollPane fx:id="scrollPane">
+         <content>
             <TextFlow fx:id="textFlow" prefHeight="718.0" prefWidth="956.0" />
-         </children></AnchorPane>
+         </content>
+      </ScrollPane>
   </items>
 </SplitPane>

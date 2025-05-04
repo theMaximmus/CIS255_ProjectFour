@@ -1,12 +1,11 @@
 package csm.cis255.cis255_projectfour;
 
+import javafx.collections.ObservableSet;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  *
@@ -185,7 +184,7 @@ public class DistrictArea implements Comparable<DistrictArea> {
                 lineScanner.useDelimiter(",");
 
                 // Write the data from the file into a single object instance
-                int id = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int id = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", "")); // last past of the line removes invisible Unicode character
                 int federalId = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
                 int districtCode = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
                 String countyName = lineScanner.next();
@@ -227,6 +226,8 @@ public class DistrictArea implements Comparable<DistrictArea> {
                 double enrollmentWithDisabilitiesPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
                 int enrollmentSocioeconomicallyDisadvantaged = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
                 double enrollmentSocioeconomicallyDisadvantagedPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+
+                // Create instance of the data entry
                 DistrictArea districtArea = new DistrictArea(
                         id, federalId, districtCode, countyName, districtName, districtType, gradeLevel12,
                         geographicalLocale1, enrollmentTotal, enrollmentCharter, enrollmentNonCharter, enrollmentAfricanAmerican,
@@ -238,20 +239,12 @@ public class DistrictArea implements Comparable<DistrictArea> {
                         enrollmentWithDisabilitiesPercentage, enrollmentSocioeconomicallyDisadvantaged, enrollmentSocioeconomicallyDisadvantagedPercentage
                 );
                 System.out.println(districtArea);
-//                DistrictArea districtArea = new DistrictArea(
-//                        lineScanner.nextInt(), lineScanner.nextInt(), lineScanner.nextInt(), lineScanner.nextLine(), lineScanner.nextLine(),
-//                        lineScanner.nextLine(), GradeLevel.K_THRU_5, GeographicalLocale.CITY_LARGE, lineScanner.nextInt(), lineScanner.nextInt(),
-//                        lineScanner.nextInt(), lineScanner.nextInt(), lineScanner.nextDouble(), lineScanner.nextInt(), lineScanner.nextDouble(),
-//                        lineScanner.nextInt(), lineScanner.nextDouble(), lineScanner.nextInt(), lineScanner.nextDouble(),
-//                        lineScanner.nextInt(), lineScanner.nextDouble(), lineScanner.nextInt(), lineScanner.nextDouble(),
-//                        lineScanner.nextInt(), lineScanner.nextDouble(), lineScanner.nextInt(), lineScanner.nextDouble(),
-//                        lineScanner.nextInt(), lineScanner.nextDouble(), lineScanner.nextInt(), lineScanner.nextDouble(),
-//                        lineScanner.nextInt(), lineScanner.nextDouble(), lineScanner.nextInt(), lineScanner.nextDouble(),
-//                        lineScanner.nextInt(), lineScanner.nextDouble(), lineScanner.nextInt(), lineScanner.nextDouble()
-//                );
 
                 // Add the District Area to the list (districtAreaList)
                 districtAreaList.add(districtArea);
+
+                // Add the District Grade Level to the ComboBox list
+                HelloController.getInstance().addItemToGradeLevelComboBox(gradeLevel12);
             }
 
         } catch (FileNotFoundException e) {
@@ -281,48 +274,7 @@ public class DistrictArea implements Comparable<DistrictArea> {
                 "Homeless: " + enrollmentHomeless + "\t\tHomeless (%): " + enrollmentHomelessPercentage + "\n" +
                 "Migrant: " + enrollmentMigrants + "\t\tMigrant (%): " + enrollmentMigrantsPercentage + "\n" +
                 "Socioeconomically Disadvantaged: " + enrollmentSocioeconomicallyDisadvantaged + "\t\tSocioeconomically Disadvantaged (%): " + enrollmentSocioeconomicallyDisadvantagedPercentage + "\n" +
-                "Students with Disabilities: " + enrollmentWithDisabilities + "\t\tStudent with Disabilities (%): " + enrollmentWithDisabilitiesPercentage;
-//        return "DistrictArea{" +
-//                "id=" + id +
-//                ", federalID=" + federalID +
-//                ", districtCode=" + districtCode +
-//                ", countyName='" + countyName + '\'' +
-//                ", districtName='" + districtName + '\'' +
-//                ", districtType='" + districtType + '\'' +
-//                ", gradeLevel=" + gradeLevel +
-//                ", geographicalLocale=" + geographicalLocale +
-//                ", enrollmentTotal=" + enrollmentTotal +
-//                ", enrollmentCharter=" + enrollmentCharter +
-//                ", enrollmentNonCharter=" + enrollmentNonCharter +
-//                ", enrollmentAfricanAmerican=" + enrollmentAfricanAmerican +
-//                ", enrollmentAfricanAmericanPercentage=" + enrollmentAfricanAmericanPercentage +
-//                ", enrollmentAmericanIndian=" + enrollmentAmericanIndian +
-//                ", enrollmentAmericanIndianPercentage=" + enrollmentAmericanIndianPercentage +
-//                ", enrollmentAsian=" + enrollmentAsian +
-//                ", enrollmentAsianPercentage=" + enrollmentAsianPercentage +
-//                ", enrollmentFilipino=" + enrollmentFilipino +
-//                ", enrollmentFilipinoPercentage=" + enrollmentFilipinoPercentage +
-//                ", enrollmentHispanic=" + enrollmentHispanic +
-//                ", enrollmentHispanicPercentage=" + enrollmentHispanicPercentage +
-//                ", enrollmentPacificIslander=" + enrollmentPacificIslander +
-//                ", enrollmentPacificIslanderPercentage=" + enrollmentPacificIslanderPercentage +
-//                ", enrollmentWhite=" + enrollmentWhite +
-//                ", enrollmentWhitePercentage=" + enrollmentWhitePercentage +
-//                ", enrollmentMultiracial=" + enrollmentMultiracial +
-//                ", enrollmentMultiracialPercentage=" + enrollmentMultiracialPercentage +
-//                ", enrollmentEnglishLearners=" + enrollmentEnglishLearners +
-//                ", enrollmentEnglishLearnersPercentage=" + enrollmentEnglishLearnersPercentage +
-//                ", enrollmentFoster=" + enrollmentFoster +
-//                ", enrollmentFosterPercentage=" + enrollmentFosterPercentage +
-//                ", enrollmentHomeless=" + enrollmentHomeless +
-//                ", enrollmentHomelessPercentage=" + enrollmentHomelessPercentage +
-//                ", enrollmentMigrants=" + enrollmentMigrants +
-//                ", enrollmentMigrantsPercentage=" + enrollmentMigrantsPercentage +
-//                ", enrollmentWithDisabilities=" + enrollmentWithDisabilities +
-//                ", enrollmentWithDisabilitiesPercentage=" + enrollmentWithDisabilitiesPercentage +
-//                ", enrollmentSocioeconomicallyDisadvantaged=" + enrollmentSocioeconomicallyDisadvantaged +
-//                ", enrollmentSocioeconomicallyDisadvantagedPercentage=" + enrollmentSocioeconomicallyDisadvantagedPercentage +
-//                '}';
+                "Students with Disabilities: " + enrollmentWithDisabilities + "\t\tStudent with Disabilities (%): " + enrollmentWithDisabilitiesPercentage + "\n";
     }
 
     @Override
