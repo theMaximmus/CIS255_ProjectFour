@@ -352,7 +352,6 @@ public class DistrictArea implements Comparable<DistrictArea> {
             this.type = type;
         }
 
-        // TODO Change the return statement
         /**
          * Returns a String representation of the enum.
          * @return a String that represents the Geographical Locale of the School District.
