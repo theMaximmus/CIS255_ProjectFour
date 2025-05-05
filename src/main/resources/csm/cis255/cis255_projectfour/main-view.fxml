@@ -20,6 +20,7 @@
             <ComboBox id="geographicalLocaleComboBox" fx:id="geographicalLocaleComboBox" prefHeight="25.0" prefWidth="200.0" promptText="Geographical Locale" />
             <ComboBox id="gradeLevelComboBox" fx:id="gradeLevelComboBox" prefHeight="25.0" prefWidth="200.0" promptText="Grade Level" />
             <Button fx:id="searchButton" mnemonicParsing="false" onAction="#onSearchButtonClick" text="Search" />
+            <Button fx:id="loadAllButton" mnemonicParsing="false" onAction="#onLoadAllButtonClick" text="Load All" />
             <Button fx:id="resetButton" mnemonicParsing="false" text="Reset" />
          </children>
       </VBox>

@@ -44,6 +44,22 @@ public class HelloController {
         }
     }
 
+    @FXML
+    protected void onLoadAllButtonClick() {
+        DistrictArea.loadAllData();
+        for (DistrictArea districtArea : districtAreaList) {
+            textFlow.getChildren().add(new Text(districtArea.toString()));
+            Separator horizontalSeparator = new Separator(Orientation.HORIZONTAL);
+            horizontalSeparator.setMinWidth(textFlow.getWidth());
+            textFlow.getChildren().add(horizontalSeparator);
+            textFlow.getChildren().add(new Text("\n"));
+        }
+    }
+
+    /**
+     * Helper method that adds GradeLevel enum to the ComboBox items list.
+     * @param item GradeLevel instance.
+     */
     public void addItemToGradeLevelComboBox(DistrictArea.GradeLevel item) {
         gradeLevelComboBox.getItems().add(item);
     }

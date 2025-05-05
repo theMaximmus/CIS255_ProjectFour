@@ -163,6 +163,96 @@ public class DistrictArea implements Comparable<DistrictArea> {
         this.enrollmentSocioeconomicallyDisadvantagedPercentage = 1;
     }
 
+    /**
+     * This method serves an exclusive purpose of loading data to display it
+     * when the user hits "Load All" button.
+     */
+    public static void loadAllData() {
+        try (Scanner fileScanner = new Scanner(new FileReader(
+                "1DistrictAreas.csv"
+        ))) {
+            // Print a message in console indicating a successful load of the data file
+            System.out.println("Successfully loaded DistrictAreas.csv file");
+
+            // Set up the mechanics of obtaining data from the file
+            String line;
+            while (fileScanner.hasNext()) { // Go until there is data in the source file
+                line = fileScanner.nextLine(); // Obtain one line of data
+
+                // Assuming we have perfectly formatted data
+                Scanner lineScanner = new Scanner(line);
+
+                // Read data in each single data entry by comma
+                lineScanner.useDelimiter(",");
+
+                // Write the data from the file into a single object instance
+                int id = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", "")); // last past of the line removes invisible Unicode character
+                int federalId = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int districtCode = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                String countyName = lineScanner.next();
+                String districtName = lineScanner.next();
+                String districtType = lineScanner.next();
+                String lowGrade = lineScanner.next();
+                String highGrade = lineScanner.next();
+                GradeLevel gradeLevel = GradeLevel.determineGradeLevel(lowGrade, highGrade);
+                GeographicalLocale geographicalLocale1 = GeographicalLocale.determineLocale(lineScanner.next());
+                int enrollmentTotal = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentCharter = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentNonCharter = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentAfricanAmerican = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                double enrollmentAfricanAmericanPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentAmericanIndian = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                double enrollmentAmericanIndianPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentAsian = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                double enrollmentAsianPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentFilipino = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                double enrollmentFilipinoPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentHispanic = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                double enrollmentHispanicPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentPacificIslander = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                double enrollmentPacificIslanderPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentWhite = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                double enrollmentWhitePercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentMultiracial = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                double enrollmentMultiracialPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentEnglishLearners = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                double enrollmentEnglishLearnersPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentFoster = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                double enrollmentFosterPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentHomeless = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                double enrollmentHomelessPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentMigrants = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                double enrollmentMigrantsPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentWithDisabilities = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                double enrollmentWithDisabilitiesPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+                int enrollmentSocioeconomicallyDisadvantaged = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
+                double enrollmentSocioeconomicallyDisadvantagedPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
+
+                // Create instance of the data entry
+                DistrictArea districtArea = new DistrictArea(
+                        id, federalId, districtCode, countyName, districtName, districtType, gradeLevel,
+                        geographicalLocale1, enrollmentTotal, enrollmentCharter, enrollmentNonCharter, enrollmentAfricanAmerican,
+                        enrollmentAfricanAmericanPercentage, enrollmentAmericanIndian, enrollmentAmericanIndianPercentage, enrollmentAsian,
+                        enrollmentAsianPercentage, enrollmentFilipino, enrollmentFilipinoPercentage, enrollmentHispanic,
+                        enrollmentHispanicPercentage, enrollmentPacificIslander, enrollmentPacificIslanderPercentage, enrollmentWhite, enrollmentWhitePercentage,
+                        enrollmentMultiracial, enrollmentMultiracialPercentage, enrollmentEnglishLearners, enrollmentEnglishLearnersPercentage, enrollmentFoster,
+                        enrollmentFosterPercentage, enrollmentHomeless, enrollmentHomelessPercentage, enrollmentMigrants, enrollmentMigrantsPercentage, enrollmentWithDisabilities,
+                        enrollmentWithDisabilitiesPercentage, enrollmentSocioeconomicallyDisadvantaged, enrollmentSocioeconomicallyDisadvantagedPercentage
+                );
+
+                // Add the District Area to the list (districtAreaList)
+                districtAreaList.add(districtArea);
+
+                // TODO change it
+                // Add the District Grade Level to the ComboBox list
+                HelloController.getInstance().addItemToGradeLevelComboBox(gradeLevel);
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void fillListAndMap() {
         try (Scanner fileScanner = new Scanner(new FileReader(
                 "1DistrictAreas.csv"
@@ -178,6 +268,7 @@ public class DistrictArea implements Comparable<DistrictArea> {
                 // Assuming we have perfectly formatted data
                 Scanner lineScanner = new Scanner(line);
 
+                // Read data in each single data entry by comma
                 lineScanner.useDelimiter(",");
 
                 // Write the data from the file into a single object instance
@@ -326,7 +417,7 @@ public class DistrictArea implements Comparable<DistrictArea> {
          * This method helps determine the Grade Level of a data entry.
          * @param lowGrade String representation of the lower grade level in the data entry.
          * @param highGrade String representation of the higher grade level in the data entry.
-         * @return The corresponding enum value of GradeLevel.
+         * @return The corresponding enum value of GradeLevel. Returns null if there is no match.
          */
         public static GradeLevel determineGradeLevel(String lowGrade, String highGrade) {
             for (GradeLevel grade : GradeLevel.values()) {
@@ -388,7 +479,7 @@ public class DistrictArea implements Comparable<DistrictArea> {
         /**
          * This method helps determine the Geographical Locale of a data entry.
          * @param geographicalLocale String representation of the geographical locale in the data entry.
-         * @return The corresponding enum value of GeographicalLocale.
+         * @return The corresponding enum value of GeographicalLocale. Returns null if there is no match.
          */
         public static GeographicalLocale determineLocale(String geographicalLocale) {
             // Find where to separate the String into two (For example, in data file geographicalLocale = "SuburbanLarge")
