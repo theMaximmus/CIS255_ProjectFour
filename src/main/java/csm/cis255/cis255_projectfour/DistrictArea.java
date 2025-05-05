@@ -240,6 +240,7 @@ public class DistrictArea implements Comparable<DistrictArea> {
                 // Add the District Area to the list (districtAreaList)
                 districtAreaList.add(districtArea);
 
+                // TODO change it
                 // Add the District Grade Level to the ComboBox list
                 HelloController.getInstance().addItemToGradeLevelComboBox(gradeLevel12);
             }
@@ -358,10 +359,7 @@ public class DistrictArea implements Comparable<DistrictArea> {
          */
         @Override
         public String toString() {
-            return "GeographicalLocale{" +
-                    "locale='" + locale + '\'' +
-                    ", type='" + type + '\'' +
-                    '}';
+            return locale + ", " + type;
         }
     }
 }

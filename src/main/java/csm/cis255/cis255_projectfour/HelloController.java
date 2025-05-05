@@ -36,7 +36,8 @@ public class HelloController {
     protected void onSearchButtonClick() {
         DistrictArea.fillListAndMap();
         textFlow.getChildren().add(new Text(districtAreaList.get(0).toString()));
-        textFlow.getChildren().add(new Separator(Orientation.HORIZONTAL) );
+        textFlow.getChildren().add(new Separator(Orientation.HORIZONTAL));
+        textFlow.getChildren().add(new Text("\n"));
         textFlow.getChildren().add(new Text(districtAreaList.get(districtAreaList.size()-1).toString()));
     }
 
