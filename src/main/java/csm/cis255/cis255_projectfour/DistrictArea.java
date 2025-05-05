@@ -187,9 +187,9 @@ public class DistrictArea implements Comparable<DistrictArea> {
                 String countyName = lineScanner.next();
                 String districtName = lineScanner.next();
                 String districtType = lineScanner.next();
-                lineScanner.next();
-                lineScanner.next();
-                GradeLevel gradeLevel12 = GradeLevel.K_THRU_12;
+                String lowGrade = lineScanner.next();
+                String highGrade = lineScanner.next();
+                GradeLevel gradeLevel = GradeLevel.determineGradeLevel(lowGrade, highGrade);
                 GeographicalLocale geographicalLocale1 = GeographicalLocale.determineLocale(lineScanner.next());
                 int enrollmentTotal = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
                 int enrollmentCharter = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
@@ -225,7 +225,7 @@ public class DistrictArea implements Comparable<DistrictArea> {
 
                 // Create instance of the data entry
                 DistrictArea districtArea = new DistrictArea(
-                        id, federalId, districtCode, countyName, districtName, districtType, gradeLevel12,
+                        id, federalId, districtCode, countyName, districtName, districtType, gradeLevel,
                         geographicalLocale1, enrollmentTotal, enrollmentCharter, enrollmentNonCharter, enrollmentAfricanAmerican,
                         enrollmentAfricanAmericanPercentage, enrollmentAmericanIndian, enrollmentAmericanIndianPercentage, enrollmentAsian,
                         enrollmentAsianPercentage, enrollmentFilipino, enrollmentFilipinoPercentage, enrollmentHispanic,
@@ -234,14 +234,13 @@ public class DistrictArea implements Comparable<DistrictArea> {
                         enrollmentFosterPercentage, enrollmentHomeless, enrollmentHomelessPercentage, enrollmentMigrants, enrollmentMigrantsPercentage, enrollmentWithDisabilities,
                         enrollmentWithDisabilitiesPercentage, enrollmentSocioeconomicallyDisadvantaged, enrollmentSocioeconomicallyDisadvantagedPercentage
                 );
-                System.out.println(districtArea);
 
                 // Add the District Area to the list (districtAreaList)
                 districtAreaList.add(districtArea);
 
                 // TODO change it
                 // Add the District Grade Level to the ComboBox list
-                HelloController.getInstance().addItemToGradeLevelComboBox(gradeLevel12);
+                HelloController.getInstance().addItemToGradeLevelComboBox(gradeLevel);
             }
 
         } catch (FileNotFoundException e) {
@@ -322,6 +321,23 @@ public class DistrictArea implements Comparable<DistrictArea> {
         public String toString() {
             return displayString;
         }
+
+        /**
+         * This method helps determine the Grade Level of a data entry.
+         * @param lowGrade String representation of the lower grade level in the data entry.
+         * @param highGrade String representation of the higher grade level in the data entry.
+         * @return The corresponding enum value of GradeLevel.
+         */
+        public static GradeLevel determineGradeLevel(String lowGrade, String highGrade) {
+            for (GradeLevel grade : GradeLevel.values()) {
+                if (grade.getGradeLow() == Integer.parseInt(lowGrade)
+                        && grade.getGradeHigh() == Integer.parseInt(highGrade)) {
+                    return grade;
+                }
+            }
+
+            return null;
+        }
     }
 
     /**
@@ -351,7 +367,7 @@ public class DistrictArea implements Comparable<DistrictArea> {
             this.type = type;
         }
 
-        // We will need both getters to
+        // We will need both getters to use them later on in the process of parsing data
         public String getLocale() {
             return locale;
         }
