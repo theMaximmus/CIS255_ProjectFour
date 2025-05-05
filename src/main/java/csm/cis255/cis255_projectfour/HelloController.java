@@ -74,6 +74,15 @@ public class HelloController {
     }
 
     /**
+     * Clears the Text Flow view from any displayed notes.
+     */
+    @FXML
+    protected void onResetButtonClick() {
+        textFlow.getChildren().clear();
+        System.out.println("Successfully cleared the TextFlow view");
+    }
+
+    /**
      * Helper method that adds GradeLevel enum to the ComboBox items list.
      * @param item GradeLevel instance.
      */
