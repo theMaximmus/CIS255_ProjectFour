@@ -165,7 +165,7 @@ public class DistrictArea implements Comparable<DistrictArea> {
 
     public static void fillListAndMap() {
         try (Scanner fileScanner = new Scanner(new FileReader(
-                "DistrictAreas.csv"
+                "1DistrictAreas.csv"
         ))) {
             // Print a message in console indicating a successful load of the data file
             System.out.println("Successfully loaded DistrictAreas.csv file");
@@ -187,11 +187,10 @@ public class DistrictArea implements Comparable<DistrictArea> {
                 String countyName = lineScanner.next();
                 String districtName = lineScanner.next();
                 String districtType = lineScanner.next();
-                GradeLevel gradeLevel12 = GradeLevel.EIGHT_THRU_12;
-                GeographicalLocale geographicalLocale1 = GeographicalLocale.CITY_LARGE;
                 lineScanner.next();
                 lineScanner.next();
-                lineScanner.next();
+                GradeLevel gradeLevel12 = GradeLevel.K_THRU_12;
+                GeographicalLocale geographicalLocale1 = GeographicalLocale.determineLocale(lineScanner.next());
                 int enrollmentTotal = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
                 int enrollmentCharter = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
                 int enrollmentNonCharter = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
@@ -352,6 +351,15 @@ public class DistrictArea implements Comparable<DistrictArea> {
             this.type = type;
         }
 
+        // We will need both getters to
+        public String getLocale() {
+            return locale;
+        }
+
+        public String getType() {
+            return type;
+        }
+
         /**
          * Returns a String representation of the enum.
          * @return a String that represents the Geographical Locale of the School District.
@@ -359,6 +367,35 @@ public class DistrictArea implements Comparable<DistrictArea> {
         @Override
         public String toString() {
             return locale + ", " + type;
+        }
+
+        /**
+         * This method helps determine the Geographical Locale of a data entry.
+         * @param geographicalLocale String representation of the geographical locale in the data entry.
+         * @return The corresponding enum value of GeographicalLocale.
+         */
+        public static GeographicalLocale determineLocale(String geographicalLocale) {
+            // Find where to separate the String into two (For example, in data file geographicalLocale = "SuburbanLarge")
+            int index = 0;
+            for (int i = 2; i < geographicalLocale.length() - 1; i++) {
+                char character = geographicalLocale.charAt(i);
+                if (Character.isUpperCase(character)) {
+                    index = i;
+                }
+            }
+
+            // Separate the Strings into two
+            String stringLocale = geographicalLocale.substring(0, index);
+            String stringType = geographicalLocale.substring(index);
+
+            // Accurately determine the correct Geographical Locale
+            for (GeographicalLocale locale : GeographicalLocale.values()) {
+                if (locale.getLocale().equalsIgnoreCase(stringLocale) &&
+                locale.getType().equalsIgnoreCase(stringType)) {
+                    return locale;
+                }
+            }
+            return null;
         }
     }
 }
