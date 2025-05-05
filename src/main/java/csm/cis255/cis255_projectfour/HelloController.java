@@ -35,10 +35,13 @@ public class HelloController {
     @FXML
     protected void onSearchButtonClick() {
         DistrictArea.fillListAndMap();
-        textFlow.getChildren().add(new Text(districtAreaList.get(0).toString()));
-        textFlow.getChildren().add(new Separator(Orientation.HORIZONTAL));
-        textFlow.getChildren().add(new Text("\n"));
-        textFlow.getChildren().add(new Text(districtAreaList.get(districtAreaList.size()-1).toString()));
+        for (DistrictArea districtArea : districtAreaList) {
+            textFlow.getChildren().add(new Text(districtArea.toString()));
+            Separator horizontalSeparator = new Separator(Orientation.HORIZONTAL);
+            horizontalSeparator.setMinWidth(textFlow.getWidth());
+            textFlow.getChildren().add(horizontalSeparator);
+            textFlow.getChildren().add(new Text("\n"));
+        }
     }
 
     public void addItemToGradeLevelComboBox(DistrictArea.GradeLevel item) {
