@@ -10,6 +10,8 @@ import javafx.scene.control.Separator;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
+import static csm.cis255.cis255_projectfour.DistrictArea.districtAreaList;
+
 public class HelloController {
     private static HelloController instance;
 
@@ -33,9 +35,9 @@ public class HelloController {
     @FXML
     protected void onSearchButtonClick() {
         DistrictArea.fillListAndMap();
-        textFlow.getChildren().add(new Text(DistrictArea.districtAreaList.get(0).toString()));
+        textFlow.getChildren().add(new Text(districtAreaList.get(0).toString()));
         textFlow.getChildren().add(new Separator(Orientation.HORIZONTAL) );
-        textFlow.getChildren().add(new Text(DistrictArea.districtAreaList.get(1).toString()));
+        textFlow.getChildren().add(new Text(districtAreaList.get(districtAreaList.size()-1).toString()));
     }
 
     public void addItemToGradeLevelComboBox(DistrictArea.GradeLevel item) {

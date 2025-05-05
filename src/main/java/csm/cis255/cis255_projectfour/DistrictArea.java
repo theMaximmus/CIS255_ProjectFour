@@ -1,8 +1,5 @@
 package csm.cis255.cis255_projectfour;
 
-import javafx.collections.ObservableSet;
-
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
@@ -168,7 +165,7 @@ public class DistrictArea implements Comparable<DistrictArea> {
 
     public static void fillListAndMap() {
         try (Scanner fileScanner = new Scanner(new FileReader(
-                "DistrictAreasDoubles.csv"
+                "DistrictAreas.csv"
         ))) {
             // Print a message in console indicating a successful load of the data file
             System.out.println("Successfully loaded DistrictAreas.csv file");
