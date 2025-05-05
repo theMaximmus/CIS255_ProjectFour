@@ -23,7 +23,7 @@
             <Button fx:id="resetButton" mnemonicParsing="false" text="Reset" />
          </children>
       </VBox>
-      <ScrollPane fx:id="scrollPane">
+      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER">
          <content>
             <TextFlow fx:id="textFlow" prefHeight="718.0" prefWidth="956.0" />
          </content>

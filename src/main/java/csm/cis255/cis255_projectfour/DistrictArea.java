@@ -263,7 +263,7 @@ public class DistrictArea implements Comparable<DistrictArea> {
                 "Filipino: " + enrollmentFilipino + "\t\tFilipino (%): " + enrollmentFilipinoPercentage + "\n" +
                 "Hispanic: " + enrollmentHispanic + "\t\tHispanic (%): " + enrollmentHispanicPercentage + "\n" +
                 "Pacific Islander: " + enrollmentPacificIslander + "\t\tPacific Islander(%): " + enrollmentPacificIslanderPercentage + "\n" +
-                "White: " + enrollmentWhite + "\t\tWhite(%): " + enrollmentWhite + "\n" +
+                "White: " + enrollmentWhite + "\t\tWhite(%): " + enrollmentWhitePercentage + "\n" +
                 "Multiracial: " + enrollmentMultiracial + "\t\tMultiracial (%): " + enrollmentMultiracialPercentage + "\n" +
                 "English Learner: " + enrollmentEnglishLearners + "\t\tEnglish Learner(%): " + enrollmentEnglishLearnersPercentage + "\n" +
                 "Foster: " + enrollmentFoster + "\t\tFoster (%): " + enrollmentFosterPercentage + "\n" +
