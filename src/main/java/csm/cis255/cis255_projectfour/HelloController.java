@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.fxml.FXML;
 import javafx.geometry.Orientation;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
@@ -28,7 +29,23 @@ public class HelloController {
     TextFlow textFlow = new TextFlow();
 
     @FXML
+    ComboBox countyNameComboBox = new ComboBox<>();
+
+    @FXML
+    ComboBox geographicalLocaleComboBox = new ComboBox<>();
+
+    @FXML
     ComboBox gradeLevelComboBox = new ComboBox<>();
+
+    @FXML
+    Button searchButton = new Button();
+
+    @FXML
+    Button loadAllButton = new Button();
+
+    @FXML
+    Button resetButton = new Button();
+
 
     // Create an Observable list of Grade levels of the gradeLevelComboBox ComboBox
 //    static ObservableList<String> districtGradeLevelList = grade
