@@ -85,13 +85,6 @@ public class HelloController {
         System.out.println("Successfully cleared the TextFlow view");
     }
 
-    /**
-     * Helper method that adds GradeLevel enum to the ComboBox items list.
-     * @param item GradeLevel instance.
-     */
-    public void addItemToGradeLevelComboBox(DistrictArea.GradeLevel item) {
-        gradeLevelComboBox.getItems().add(item);
-    }
 
     /**
      * Helper method that adds County Name to the ComboBox items list.
@@ -99,5 +92,21 @@ public class HelloController {
      */
     public void addItemToCountyNameComboBox(String item) {
         countyNameComboBox.getItems().add(item);
+    }
+
+    /**
+     * Helper method that adds GeographicalLocale enum to the ComboBox items list.
+     * @param item GeographicalLocale instance.
+     */
+    public void addItemToGeographicalLocaleComboBox(DistrictArea.GeographicalLocale item) {
+        geographicalLocaleComboBox.getItems().add(item);
+    }
+
+    /**
+     * Helper method that adds GradeLevel enum to the ComboBox items list.
+     * @param item GradeLevel instance.
+     */
+    public void addItemToGradeLevelComboBox(DistrictArea.GradeLevel item) {
+        gradeLevelComboBox.getItems().add(item);
     }
 }

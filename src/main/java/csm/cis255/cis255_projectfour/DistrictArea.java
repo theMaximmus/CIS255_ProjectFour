@@ -246,11 +246,25 @@ public class DistrictArea implements Comparable<DistrictArea> {
                 // Add the District Area to the list (districtAreaList)
                 districtAreaList.add(districtArea);
 
+                // Add the District's County Name to the ComboBox list by checking if it is already there
+                if (!HelloController.getInstance().countyNameComboBox.getItems().contains(countyName)) {
+                    HelloController.getInstance().addItemToCountyNameComboBox(countyName);
+                    // Sort each time new entry is added
+                    sortCountyNameComboBoxItems();
+                }
+
                 // Add the District Grade Level to the ComboBox list by checking if it is already there
                 if (!HelloController.getInstance().gradeLevelComboBox.getItems().contains(gradeLevel)) {
                     HelloController.getInstance().addItemToGradeLevelComboBox(gradeLevel);
                     // Sort each time new entry is added
                     FXCollections.sort(HelloController.getInstance().gradeLevelComboBox.getItems());
+                }
+
+                // Add the District's Geographical Locale to the ComboBox list by checking if it is already there
+                if (!HelloController.getInstance().geographicalLocaleComboBox.getItems().contains(geographicalLocale)) {
+                    HelloController.getInstance().addItemToGeographicalLocaleComboBox(geographicalLocale);
+                    // Sort each time new entry is added
+                    sortGeographicalLocaleComboBoxItems();
                 }
             }
 
@@ -335,18 +349,26 @@ public class DistrictArea implements Comparable<DistrictArea> {
                 // Add the District Area to the list (districtAreaList)
                 districtAreaList.add(districtArea);
 
-                // Add the District's Grade Level to the ComboBox list by checking if it is already there
-                if (!HelloController.getInstance().gradeLevelComboBox.getItems().contains(gradeLevel)) {
-                    HelloController.getInstance().addItemToGradeLevelComboBox(gradeLevel);
-                    // Sort each time new entry is added
-                    sortGradeLevelComboBoxItems();
-                }
-
                 // Add the District's County Name to the ComboBox list by checking if it is already there
                 if (!HelloController.getInstance().countyNameComboBox.getItems().contains(countyName)) {
                     HelloController.getInstance().addItemToCountyNameComboBox(countyName);
                     // Sort each time new entry is added
                     sortCountyNameComboBoxItems();
+                }
+
+                // Add the District's Geographical Locale to the ComboBox list by checking if it is already there
+                if (!HelloController.getInstance().geographicalLocaleComboBox.getItems().contains(geographicalLocale)) {
+
+                    HelloController.getInstance().addItemToGeographicalLocaleComboBox(geographicalLocale);
+                    // Sort each time new entry is added
+//                    sortGeographicalLocaleComboBoxItems();
+                }
+
+                // Add the District's Grade Level to the ComboBox list by checking if it is already there
+                if (!HelloController.getInstance().gradeLevelComboBox.getItems().contains(gradeLevel)) {
+                    HelloController.getInstance().addItemToGradeLevelComboBox(gradeLevel);
+                    // Sort each time new entry is added
+                    sortGradeLevelComboBoxItems();
                 }
             }
 
@@ -422,17 +444,26 @@ public class DistrictArea implements Comparable<DistrictArea> {
     }
 
     /**
-     * Helper method that sorts Grade Levels displayed in the corresponding Combo Box.
-     */
-    private static void sortGradeLevelComboBoxItems() {
-        FXCollections.sort(HelloController.getInstance().gradeLevelComboBox.getItems());
-    }
-
-    /**
      * Helper method that sorts County Names displayed in the corresponding Combo Box.
      */
     private static void sortCountyNameComboBoxItems() {
         Collections.sort(HelloController.getInstance().countyNameComboBox.getItems());
+    }
+
+    /**
+     * Helper method that sorts Geographical Locales displayed in the corresponding Combo Box.
+     */
+    private static void sortGeographicalLocaleComboBoxItems() {
+        // Delete nulls from the list (for an unknown reason I keep getting nulls in the list)
+        HelloController.getInstance().geographicalLocaleComboBox.getItems().removeIf(Objects::isNull);
+        FXCollections.sort(HelloController.getInstance().geographicalLocaleComboBox.getItems());
+    }
+
+    /**
+     * Helper method that sorts Grade Levels displayed in the corresponding Combo Box.
+     */
+    private static void sortGradeLevelComboBoxItems() {
+        FXCollections.sort(HelloController.getInstance().gradeLevelComboBox.getItems());
     }
 
     /**
@@ -528,7 +559,7 @@ public class DistrictArea implements Comparable<DistrictArea> {
      * @author Maksym Stesev
      * @date 05/04/2025
      */
-    public static enum GeographicalLocale {
+    public static enum GeographicalLocale implements Comparator<GeographicalLocale> {
         CITY_LARGE("City", "Large"),
         CITY_MIDSIZE("City", "Midsize"),
         CITY_SMALL("City", "Small"),
@@ -596,5 +627,22 @@ public class DistrictArea implements Comparable<DistrictArea> {
             }
             return null;
         }
+
+        /**
+         * Allows comparison of two GeographicalLocale instances which easies the process of sorting the available entries.
+         * @param o1 the first object to be compared.
+         * @param o2 the second object to be compared.
+         * @return Alphabetical order.
+         */
+        @Override
+        public int compare(GeographicalLocale o1, GeographicalLocale o2) {
+            int localeCompare = o1.getLocale().compareToIgnoreCase(o2.getLocale());
+            if (localeCompare != 0) {
+                return localeCompare;
+            }
+
+            return o1.getType().compareToIgnoreCase(o2.getType());
+        }
+
     }
 }
