@@ -198,7 +198,7 @@ public class DistrictArea implements Comparable<DistrictArea> {
                 String lowGrade = lineScanner.next();
                 String highGrade = lineScanner.next();
                 GradeLevel gradeLevel = GradeLevel.determineGradeLevel(lowGrade, highGrade);
-                GeographicalLocale geographicalLocale1 = GeographicalLocale.determineLocale(lineScanner.next());
+                GeographicalLocale geographicalLocale = GeographicalLocale.determineLocale(lineScanner.next());
                 int enrollmentTotal = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
                 int enrollmentCharter = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
                 int enrollmentNonCharter = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
@@ -234,7 +234,7 @@ public class DistrictArea implements Comparable<DistrictArea> {
                 // Create instance of the data entry
                 DistrictArea districtArea = new DistrictArea(
                         id, federalId, districtCode, countyName, districtName, districtType, gradeLevel,
-                        geographicalLocale1, enrollmentTotal, enrollmentCharter, enrollmentNonCharter, enrollmentAfricanAmerican,
+                        geographicalLocale, enrollmentTotal, enrollmentCharter, enrollmentNonCharter, enrollmentAfricanAmerican,
                         enrollmentAfricanAmericanPercentage, enrollmentAmericanIndian, enrollmentAmericanIndianPercentage, enrollmentAsian,
                         enrollmentAsianPercentage, enrollmentFilipino, enrollmentFilipinoPercentage, enrollmentHispanic,
                         enrollmentHispanicPercentage, enrollmentPacificIslander, enrollmentPacificIslanderPercentage, enrollmentWhite, enrollmentWhitePercentage,
@@ -287,7 +287,7 @@ public class DistrictArea implements Comparable<DistrictArea> {
                 String lowGrade = lineScanner.next();
                 String highGrade = lineScanner.next();
                 GradeLevel gradeLevel = GradeLevel.determineGradeLevel(lowGrade, highGrade);
-                GeographicalLocale geographicalLocale1 = GeographicalLocale.determineLocale(lineScanner.next());
+                GeographicalLocale geographicalLocale = GeographicalLocale.determineLocale(lineScanner.next());
                 int enrollmentTotal = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
                 int enrollmentCharter = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
                 int enrollmentNonCharter = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
@@ -323,7 +323,7 @@ public class DistrictArea implements Comparable<DistrictArea> {
                 // Create instance of the data entry
                 DistrictArea districtArea = new DistrictArea(
                         id, federalId, districtCode, countyName, districtName, districtType, gradeLevel,
-                        geographicalLocale1, enrollmentTotal, enrollmentCharter, enrollmentNonCharter, enrollmentAfricanAmerican,
+                        geographicalLocale, enrollmentTotal, enrollmentCharter, enrollmentNonCharter, enrollmentAfricanAmerican,
                         enrollmentAfricanAmericanPercentage, enrollmentAmericanIndian, enrollmentAmericanIndianPercentage, enrollmentAsian,
                         enrollmentAsianPercentage, enrollmentFilipino, enrollmentFilipinoPercentage, enrollmentHispanic,
                         enrollmentHispanicPercentage, enrollmentPacificIslander, enrollmentPacificIslanderPercentage, enrollmentWhite, enrollmentWhitePercentage,
@@ -335,8 +335,19 @@ public class DistrictArea implements Comparable<DistrictArea> {
                 // Add the District Area to the list (districtAreaList)
                 districtAreaList.add(districtArea);
 
-                // Add the District Grade Level to the ComboBox list by checking if it is already there
-                sortGradeLevelComboBoxItems(gradeLevel);
+                // Add the District's Grade Level to the ComboBox list by checking if it is already there
+                if (!HelloController.getInstance().gradeLevelComboBox.getItems().contains(gradeLevel)) {
+                    HelloController.getInstance().addItemToGradeLevelComboBox(gradeLevel);
+                    // Sort each time new entry is added
+                    sortGradeLevelComboBoxItems();
+                }
+
+                // Add the District's County Name to the ComboBox list by checking if it is already there
+                if (!HelloController.getInstance().countyNameComboBox.getItems().contains(countyName)) {
+                    HelloController.getInstance().addItemToCountyNameComboBox(countyName);
+                    // Sort each time new entry is added
+                    sortCountyNameComboBoxItems();
+                }
             }
 
         } catch (FileNotFoundException e) {
@@ -413,12 +424,15 @@ public class DistrictArea implements Comparable<DistrictArea> {
     /**
      * Helper method that sorts Grade Levels displayed in the corresponding Combo Box.
      */
-    private static void sortGradeLevelComboBoxItems(GradeLevel gradeLevel) {
-        if (!HelloController.getInstance().gradeLevelComboBox.getItems().contains(gradeLevel)) {
-            HelloController.getInstance().addItemToGradeLevelComboBox(gradeLevel);
-            // Sort each time new entry is added
-            FXCollections.sort(HelloController.getInstance().gradeLevelComboBox.getItems());
-        }
+    private static void sortGradeLevelComboBoxItems() {
+        FXCollections.sort(HelloController.getInstance().gradeLevelComboBox.getItems());
+    }
+
+    /**
+     * Helper method that sorts County Names displayed in the corresponding Combo Box.
+     */
+    private static void sortCountyNameComboBoxItems() {
+        Collections.sort(HelloController.getInstance().countyNameComboBox.getItems());
     }
 
     /**

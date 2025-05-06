@@ -92,4 +92,12 @@ public class HelloController {
     public void addItemToGradeLevelComboBox(DistrictArea.GradeLevel item) {
         gradeLevelComboBox.getItems().add(item);
     }
+
+    /**
+     * Helper method that adds County Name to the ComboBox items list.
+     * @param item County Name String instance.
+     */
+    public void addItemToCountyNameComboBox(String item) {
+        countyNameComboBox.getItems().add(item);
+    }
 }
