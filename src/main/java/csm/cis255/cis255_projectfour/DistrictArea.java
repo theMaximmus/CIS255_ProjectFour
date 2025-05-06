@@ -1,5 +1,7 @@
 package csm.cis255.cis255_projectfour;
 
+import javafx.collections.FXCollections;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
@@ -120,7 +122,7 @@ public class DistrictArea implements Comparable<DistrictArea> {
         this.enrollmentSocioeconomicallyDisadvantagedPercentage = enrollmentSocioeconomicallyDisadvantagedPercentage;
     }
 
-    // Testing purposes only!
+    // Empty constructor for testing purposes only!
     public DistrictArea() {
         this.id = 1;
         this.federalID = 12;
@@ -330,9 +332,11 @@ public class DistrictArea implements Comparable<DistrictArea> {
                 districtAreaList.add(districtArea);
 
                 // TODO change it
-                // Add the District Grade Level to the ComboBox list
-                if (HelloController.getInstance().textFlow.getChildren().equals(gradeLevel)) {
+                // Add the District Grade Level to the ComboBox list by checking if it is already there
+                if (!HelloController.getInstance().gradeLevelComboBox.getItems().contains(gradeLevel)) {
                     HelloController.getInstance().addItemToGradeLevelComboBox(gradeLevel);
+                    // Sort each time new entry is added
+                    FXCollections.sort(HelloController.getInstance().gradeLevelComboBox.getItems());
                 }
             }
 
@@ -413,7 +417,7 @@ public class DistrictArea implements Comparable<DistrictArea> {
      * @author Maksym Stesev
      * @date 05/04/2025
      */
-    public static enum GradeLevel {
+    public static enum GradeLevel implements Comparator<GradeLevel> {
         K_THRU_12(0, 12, "K-12"),
         K_THRU_8(0, 8, "K-8"),
         K_THRU_6(0, 6, "K-6"),
@@ -466,6 +470,32 @@ public class DistrictArea implements Comparable<DistrictArea> {
             }
 
             return null;
+        }
+
+        /**
+         * Allows comparison of two GradeLevel instances which easies the process of sorting the available entries.
+         * @param o1 the first object to be compared.
+         * @param o2 the second object to be compared.
+         * @return Digits before letters, Alphabetical order.
+         */
+        @Override
+        public int compare(GradeLevel o1, GradeLevel o2) {
+            // Looking at first symbol
+            boolean isDigit1 = Character.isDigit(o1.toString().charAt(0));
+            boolean isDigit2 = Character.isDigit(o2.toString().charAt(0));
+
+            // Digits before letters
+            if (isDigit1 && !isDigit2) {
+                return -1;
+            }
+
+            // Digits after letters
+            if (!isDigit1 && isDigit2) {
+                return 1;
+            }
+
+            // Alphabetical order
+            return o1.toString().compareToIgnoreCase(o2.toString());
         }
     }
 

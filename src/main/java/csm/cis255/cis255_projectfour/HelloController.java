@@ -61,6 +61,9 @@ public class HelloController {
         }
     }
 
+    /**
+     * Loads all data from the data set and displays it on the screen
+     */
     @FXML
     protected void onLoadAllButtonClick() {
         DistrictArea.loadAllData();
