@@ -331,7 +331,9 @@ public class DistrictArea implements Comparable<DistrictArea> {
 
                 // TODO change it
                 // Add the District Grade Level to the ComboBox list
-                HelloController.getInstance().addItemToGradeLevelComboBox(gradeLevel);
+                if (HelloController.getInstance().textFlow.getChildren().equals(gradeLevel)) {
+                    HelloController.getInstance().addItemToGradeLevelComboBox(gradeLevel);
+                }
             }
 
         } catch (FileNotFoundException e) {
@@ -362,6 +364,42 @@ public class DistrictArea implements Comparable<DistrictArea> {
                 "Migrant: " + enrollmentMigrants + "\t\tMigrant (%): " + enrollmentMigrantsPercentage + "\n" +
                 "Socioeconomically Disadvantaged: " + enrollmentSocioeconomicallyDisadvantaged + "\t\tSocioeconomically Disadvantaged (%): " + enrollmentSocioeconomicallyDisadvantagedPercentage + "\n" +
                 "Students with Disabilities: " + enrollmentWithDisabilities + "\t\tStudent with Disabilities (%): " + enrollmentWithDisabilitiesPercentage + "\n";
+    }
+
+    /**
+     * Overwritten equals method that helps determine whether two instances
+     * of DistrictArea objects are logically equal
+     * @param o The compared instance of DistrictArea object
+     * @return A boolean value whether two objects are equal
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof DistrictArea that)) return false;
+        return id == that.id && federalID == that.federalID && districtCode == that.districtCode
+                && enrollmentTotal == that.enrollmentTotal && enrollmentCharter == that.enrollmentCharter
+                && enrollmentNonCharter == that.enrollmentNonCharter && enrollmentAfricanAmerican == that.enrollmentAfricanAmerican
+                && Double.compare(enrollmentAfricanAmericanPercentage, that.enrollmentAfricanAmericanPercentage) == 0
+                && enrollmentAmericanIndian == that.enrollmentAmericanIndian
+                && Double.compare(enrollmentAmericanIndianPercentage, that.enrollmentAmericanIndianPercentage) == 0
+                && enrollmentAsian == that.enrollmentAsian && Double.compare(enrollmentAsianPercentage, that.enrollmentAsianPercentage) == 0
+                && enrollmentFilipino == that.enrollmentFilipino && Double.compare(enrollmentFilipinoPercentage, that.enrollmentFilipinoPercentage) == 0
+                && enrollmentHispanic == that.enrollmentHispanic && Double.compare(enrollmentHispanicPercentage, that.enrollmentHispanicPercentage) == 0
+                && enrollmentPacificIslander == that.enrollmentPacificIslander
+                && Double.compare(enrollmentPacificIslanderPercentage, that.enrollmentPacificIslanderPercentage) == 0
+                && enrollmentWhite == that.enrollmentWhite && Double.compare(enrollmentWhitePercentage, that.enrollmentWhitePercentage) == 0
+                && enrollmentMultiracial == that.enrollmentMultiracial
+                && Double.compare(enrollmentMultiracialPercentage, that.enrollmentMultiracialPercentage) == 0
+                && enrollmentEnglishLearners == that.enrollmentEnglishLearners
+                && Double.compare(enrollmentEnglishLearnersPercentage, that.enrollmentEnglishLearnersPercentage) == 0
+                && enrollmentFoster == that.enrollmentFoster && Double.compare(enrollmentFosterPercentage, that.enrollmentFosterPercentage) == 0
+                && enrollmentHomeless == that.enrollmentHomeless && Double.compare(enrollmentHomelessPercentage, that.enrollmentHomelessPercentage) == 0
+                && enrollmentMigrants == that.enrollmentMigrants && Double.compare(enrollmentMigrantsPercentage, that.enrollmentMigrantsPercentage) == 0
+                && enrollmentWithDisabilities == that.enrollmentWithDisabilities
+                && Double.compare(enrollmentWithDisabilitiesPercentage, that.enrollmentWithDisabilitiesPercentage) == 0
+                && enrollmentSocioeconomicallyDisadvantaged == that.enrollmentSocioeconomicallyDisadvantaged
+                && Double.compare(enrollmentSocioeconomicallyDisadvantagedPercentage, that.enrollmentSocioeconomicallyDisadvantagedPercentage) == 0
+                && Objects.equals(countyName, that.countyName) && Objects.equals(districtName, that.districtName)
+                && Objects.equals(districtType, that.districtType) && gradeLevel == that.gradeLevel && geographicalLocale == that.geographicalLocale;
     }
 
     @Override
