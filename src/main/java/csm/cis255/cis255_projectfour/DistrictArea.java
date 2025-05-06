@@ -7,7 +7,8 @@ import java.io.FileReader;
 import java.util.*;
 
 /**
- *
+ * District Area class which represents a single District Area in the State of California.
+ * The data had been extracted from the official website of publicly available data of the State of California.
  */
 public class DistrictArea implements Comparable<DistrictArea> {
 
@@ -245,9 +246,12 @@ public class DistrictArea implements Comparable<DistrictArea> {
                 // Add the District Area to the list (districtAreaList)
                 districtAreaList.add(districtArea);
 
-                // TODO change it
-                // Add the District Grade Level to the ComboBox list
-                HelloController.getInstance().addItemToGradeLevelComboBox(gradeLevel);
+                // Add the District Grade Level to the ComboBox list by checking if it is already there
+                if (!HelloController.getInstance().gradeLevelComboBox.getItems().contains(gradeLevel)) {
+                    HelloController.getInstance().addItemToGradeLevelComboBox(gradeLevel);
+                    // Sort each time new entry is added
+                    FXCollections.sort(HelloController.getInstance().gradeLevelComboBox.getItems());
+                }
             }
 
         } catch (FileNotFoundException e) {
@@ -331,13 +335,8 @@ public class DistrictArea implements Comparable<DistrictArea> {
                 // Add the District Area to the list (districtAreaList)
                 districtAreaList.add(districtArea);
 
-                // TODO change it
                 // Add the District Grade Level to the ComboBox list by checking if it is already there
-                if (!HelloController.getInstance().gradeLevelComboBox.getItems().contains(gradeLevel)) {
-                    HelloController.getInstance().addItemToGradeLevelComboBox(gradeLevel);
-                    // Sort each time new entry is added
-                    FXCollections.sort(HelloController.getInstance().gradeLevelComboBox.getItems());
-                }
+                sortGradeLevelComboBoxItems(gradeLevel);
             }
 
         } catch (FileNotFoundException e) {
@@ -409,6 +408,17 @@ public class DistrictArea implements Comparable<DistrictArea> {
     @Override
     public int compareTo(DistrictArea o) {
         return 0;
+    }
+
+    /**
+     * Helper method that sorts Grade Levels displayed in the corresponding Combo Box.
+     */
+    private static void sortGradeLevelComboBoxItems(GradeLevel gradeLevel) {
+        if (!HelloController.getInstance().gradeLevelComboBox.getItems().contains(gradeLevel)) {
+            HelloController.getInstance().addItemToGradeLevelComboBox(gradeLevel);
+            // Sort each time new entry is added
+            FXCollections.sort(HelloController.getInstance().gradeLevelComboBox.getItems());
+        }
     }
 
     /**
