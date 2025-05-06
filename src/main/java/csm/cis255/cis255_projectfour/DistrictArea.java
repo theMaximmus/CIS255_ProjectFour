@@ -253,18 +253,18 @@ public class DistrictArea implements Comparable<DistrictArea> {
                     sortCountyNameComboBoxItems();
                 }
 
-                // Add the District Grade Level to the ComboBox list by checking if it is already there
-                if (!HelloController.getInstance().gradeLevelComboBox.getItems().contains(gradeLevel)) {
-                    HelloController.getInstance().addItemToGradeLevelComboBox(gradeLevel);
-                    // Sort each time new entry is added
-                    FXCollections.sort(HelloController.getInstance().gradeLevelComboBox.getItems());
-                }
-
                 // Add the District's Geographical Locale to the ComboBox list by checking if it is already there
                 if (!HelloController.getInstance().geographicalLocaleComboBox.getItems().contains(geographicalLocale)) {
                     HelloController.getInstance().addItemToGeographicalLocaleComboBox(geographicalLocale);
                     // Sort each time new entry is added
                     sortGeographicalLocaleComboBoxItems();
+                }
+
+                // Add the District Grade Level to the ComboBox list by checking if it is already there
+                if (!HelloController.getInstance().gradeLevelComboBox.getItems().contains(gradeLevel)) {
+                    HelloController.getInstance().addItemToGradeLevelComboBox(gradeLevel);
+                    // Sort each time new entry is added
+                    FXCollections.sort(HelloController.getInstance().gradeLevelComboBox.getItems());
                 }
             }
 
@@ -358,10 +358,9 @@ public class DistrictArea implements Comparable<DistrictArea> {
 
                 // Add the District's Geographical Locale to the ComboBox list by checking if it is already there
                 if (!HelloController.getInstance().geographicalLocaleComboBox.getItems().contains(geographicalLocale)) {
-
                     HelloController.getInstance().addItemToGeographicalLocaleComboBox(geographicalLocale);
                     // Sort each time new entry is added
-//                    sortGeographicalLocaleComboBoxItems();
+                    sortGeographicalLocaleComboBoxItems();
                 }
 
                 // Add the District's Grade Level to the ComboBox list by checking if it is already there
