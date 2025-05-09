@@ -1,22 +1,19 @@
 package csm.cis255.cis255_projectfour;
 
-import javafx.collections.ObservableList;
-import javafx.collections.ObservableSet;
 import javafx.fxml.FXML;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
 import static csm.cis255.cis255_projectfour.DistrictArea.districtAreaList;
 
-public class HelloController {
-    private static HelloController instance;
+public class DistrictAreaController {
+    private static DistrictAreaController instance;
 
-    public static HelloController getInstance() {
+    public static DistrictAreaController getInstance() {
         return instance;
     }
 
@@ -86,13 +83,7 @@ public class HelloController {
     }
 
 
-    /**
-     * Helper method that adds County Name to the ComboBox items list.
-     * @param item County Name String instance.
-     */
-    public void addItemToCountyNameComboBox(String item) {
-        countyNameComboBox.getItems().add(item);
-    }
+
 
     /**
      * Helper method that adds GeographicalLocale enum to the ComboBox items list.
@@ -108,5 +99,13 @@ public class HelloController {
      */
     public void addItemToGradeLevelComboBox(DistrictArea.GradeLevel item) {
         gradeLevelComboBox.getItems().add(item);
+    }
+
+    /**
+     * Helper method that adds County Name to the ComboBox items list.
+     * @param item County Name String instance.
+     */
+    public void addItemToCountyNameComboBox(String item) {
+        countyNameComboBox.getItems().add(item);
     }
 }
