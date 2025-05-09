@@ -247,24 +247,24 @@ public class DistrictArea implements Comparable<DistrictArea> {
                 districtAreaList.add(districtArea);
 
                 // Add the District's County Name to the ComboBox list by checking if it is already there
-                if (!HelloController.getInstance().countyNameComboBox.getItems().contains(countyName)) {
-                    HelloController.getInstance().addItemToCountyNameComboBox(countyName);
+                if (!DistrictAreaController.getInstance().countyNameComboBox.getItems().contains(countyName)) {
+                    DistrictAreaController.getInstance().addItemToCountyNameComboBox(countyName);
                     // Sort each time new entry is added
                     sortCountyNameComboBoxItems();
                 }
 
-                // Add the District's Geographical Locale to the ComboBox list by checking if it is already there
-                if (!HelloController.getInstance().geographicalLocaleComboBox.getItems().contains(geographicalLocale)) {
-                    HelloController.getInstance().addItemToGeographicalLocaleComboBox(geographicalLocale);
+//                 Add the District's Geographical Locale to the ComboBox list by checking if it is already there
+                if (!DistrictAreaController.getInstance().geographicalLocaleComboBox.getItems().contains(geographicalLocale)) {
+                    DistrictAreaController.getInstance().addItemToGeographicalLocaleComboBox(geographicalLocale);
                     // Sort each time new entry is added
                     sortGeographicalLocaleComboBoxItems();
                 }
 
-                // Add the District Grade Level to the ComboBox list by checking if it is already there
-                if (!HelloController.getInstance().gradeLevelComboBox.getItems().contains(gradeLevel)) {
-                    HelloController.getInstance().addItemToGradeLevelComboBox(gradeLevel);
+//                 Add the District Grade Level to the ComboBox list by checking if it is already there
+                if (!DistrictAreaController.getInstance().gradeLevelComboBox.getItems().contains(gradeLevel)) {
+                    DistrictAreaController.getInstance().addItemToGradeLevelComboBox(gradeLevel);
                     // Sort each time new entry is added
-                    FXCollections.sort(HelloController.getInstance().gradeLevelComboBox.getItems());
+                    FXCollections.sort(DistrictAreaController.getInstance().gradeLevelComboBox.getItems());
                 }
             }
 
@@ -350,22 +350,18 @@ public class DistrictArea implements Comparable<DistrictArea> {
                 districtAreaList.add(districtArea);
 
                 // Add the District's County Name to the ComboBox list by checking if it is already there
-                if (!HelloController.getInstance().countyNameComboBox.getItems().contains(countyName)) {
-                    HelloController.getInstance().addItemToCountyNameComboBox(countyName);
-                    // Sort each time new entry is added
-                    sortCountyNameComboBoxItems();
-                }
+                DistrictAreaApplication.uniqueCounties.add(countyName);
 
                 // Add the District's Geographical Locale to the ComboBox list by checking if it is already there
-                if (!HelloController.getInstance().geographicalLocaleComboBox.getItems().contains(geographicalLocale)) {
-                    HelloController.getInstance().addItemToGeographicalLocaleComboBox(geographicalLocale);
+                if (!DistrictAreaController.getInstance().geographicalLocaleComboBox.getItems().contains(geographicalLocale)) {
+                    DistrictAreaController.getInstance().addItemToGeographicalLocaleComboBox(geographicalLocale);
                     // Sort each time new entry is added
                     sortGeographicalLocaleComboBoxItems();
                 }
 
                 // Add the District's Grade Level to the ComboBox list by checking if it is already there
-                if (!HelloController.getInstance().gradeLevelComboBox.getItems().contains(gradeLevel)) {
-                    HelloController.getInstance().addItemToGradeLevelComboBox(gradeLevel);
+                if (!DistrictAreaController.getInstance().gradeLevelComboBox.getItems().contains(gradeLevel)) {
+                    DistrictAreaController.getInstance().addItemToGradeLevelComboBox(gradeLevel);
                     // Sort each time new entry is added
                     sortGradeLevelComboBoxItems();
                 }
@@ -378,6 +374,318 @@ public class DistrictArea implements Comparable<DistrictArea> {
 
     // TODO Write getters and setters (validity checking + explain omitted ones)
 
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getFederalID() {
+        return federalID;
+    }
+
+    public void setFederalID(int federalID) {
+        this.federalID = federalID;
+    }
+
+    public int getDistrictCode() {
+        return districtCode;
+    }
+
+    public void setDistrictCode(int districtCode) {
+        this.districtCode = districtCode;
+    }
+
+    public String getCountyName() {
+        return countyName;
+    }
+
+    public void setCountyName(String countyName) {
+        this.countyName = countyName;
+    }
+
+    public String getDistrictName() {
+        return districtName;
+    }
+
+    public void setDistrictName(String districtName) {
+        this.districtName = districtName;
+    }
+
+    public String getDistrictType() {
+        return districtType;
+    }
+
+    public void setDistrictType(String districtType) {
+        this.districtType = districtType;
+    }
+
+    public GradeLevel getGradeLevel() {
+        return gradeLevel;
+    }
+
+    public void setGradeLevel(GradeLevel gradeLevel) {
+        this.gradeLevel = gradeLevel;
+    }
+
+    public GeographicalLocale getGeographicalLocale() {
+        return geographicalLocale;
+    }
+
+    public void setGeographicalLocale(GeographicalLocale geographicalLocale) {
+        this.geographicalLocale = geographicalLocale;
+    }
+
+    public int getEnrollmentTotal() {
+        return enrollmentTotal;
+    }
+
+    public void setEnrollmentTotal(int enrollmentTotal) {
+        this.enrollmentTotal = enrollmentTotal;
+    }
+
+    public int getEnrollmentCharter() {
+        return enrollmentCharter;
+    }
+
+    public void setEnrollmentCharter(int enrollmentCharter) {
+        this.enrollmentCharter = enrollmentCharter;
+    }
+
+    public int getEnrollmentNonCharter() {
+        return enrollmentNonCharter;
+    }
+
+    public void setEnrollmentNonCharter(int enrollmentNonCharter) {
+        this.enrollmentNonCharter = enrollmentNonCharter;
+    }
+
+    public int getEnrollmentAfricanAmerican() {
+        return enrollmentAfricanAmerican;
+    }
+
+    public void setEnrollmentAfricanAmerican(int enrollmentAfricanAmerican) {
+        this.enrollmentAfricanAmerican = enrollmentAfricanAmerican;
+    }
+
+    public double getEnrollmentAfricanAmericanPercentage() {
+        return enrollmentAfricanAmericanPercentage;
+    }
+
+    public void setEnrollmentAfricanAmericanPercentage(double enrollmentAfricanAmericanPercentage) {
+        this.enrollmentAfricanAmericanPercentage = enrollmentAfricanAmericanPercentage;
+    }
+
+    public int getEnrollmentAmericanIndian() {
+        return enrollmentAmericanIndian;
+    }
+
+    public void setEnrollmentAmericanIndian(int enrollmentAmericanIndian) {
+        this.enrollmentAmericanIndian = enrollmentAmericanIndian;
+    }
+
+    public double getEnrollmentAmericanIndianPercentage() {
+        return enrollmentAmericanIndianPercentage;
+    }
+
+    public void setEnrollmentAmericanIndianPercentage(double enrollmentAmericanIndianPercentage) {
+        this.enrollmentAmericanIndianPercentage = enrollmentAmericanIndianPercentage;
+    }
+
+    public int getEnrollmentAsian() {
+        return enrollmentAsian;
+    }
+
+    public void setEnrollmentAsian(int enrollmentAsian) {
+        this.enrollmentAsian = enrollmentAsian;
+    }
+
+    public double getEnrollmentAsianPercentage() {
+        return enrollmentAsianPercentage;
+    }
+
+    public void setEnrollmentAsianPercentage(double enrollmentAsianPercentage) {
+        this.enrollmentAsianPercentage = enrollmentAsianPercentage;
+    }
+
+    public int getEnrollmentFilipino() {
+        return enrollmentFilipino;
+    }
+
+    public void setEnrollmentFilipino(int enrollmentFilipino) {
+        this.enrollmentFilipino = enrollmentFilipino;
+    }
+
+    public double getEnrollmentFilipinoPercentage() {
+        return enrollmentFilipinoPercentage;
+    }
+
+    public void setEnrollmentFilipinoPercentage(double enrollmentFilipinoPercentage) {
+        this.enrollmentFilipinoPercentage = enrollmentFilipinoPercentage;
+    }
+
+    public int getEnrollmentHispanic() {
+        return enrollmentHispanic;
+    }
+
+    public void setEnrollmentHispanic(int enrollmentHispanic) {
+        this.enrollmentHispanic = enrollmentHispanic;
+    }
+
+    public double getEnrollmentHispanicPercentage() {
+        return enrollmentHispanicPercentage;
+    }
+
+    public void setEnrollmentHispanicPercentage(double enrollmentHispanicPercentage) {
+        this.enrollmentHispanicPercentage = enrollmentHispanicPercentage;
+    }
+
+    public int getEnrollmentPacificIslander() {
+        return enrollmentPacificIslander;
+    }
+
+    public void setEnrollmentPacificIslander(int enrollmentPacificIslander) {
+        this.enrollmentPacificIslander = enrollmentPacificIslander;
+    }
+
+    public double getEnrollmentPacificIslanderPercentage() {
+        return enrollmentPacificIslanderPercentage;
+    }
+
+    public void setEnrollmentPacificIslanderPercentage(double enrollmentPacificIslanderPercentage) {
+        this.enrollmentPacificIslanderPercentage = enrollmentPacificIslanderPercentage;
+    }
+
+    public int getEnrollmentWhite() {
+        return enrollmentWhite;
+    }
+
+    public void setEnrollmentWhite(int enrollmentWhite) {
+        this.enrollmentWhite = enrollmentWhite;
+    }
+
+    public double getEnrollmentWhitePercentage() {
+        return enrollmentWhitePercentage;
+    }
+
+    public void setEnrollmentWhitePercentage(double enrollmentWhitePercentage) {
+        this.enrollmentWhitePercentage = enrollmentWhitePercentage;
+    }
+
+    public int getEnrollmentMultiracial() {
+        return enrollmentMultiracial;
+    }
+
+    public void setEnrollmentMultiracial(int enrollmentMultiracial) {
+        this.enrollmentMultiracial = enrollmentMultiracial;
+    }
+
+    public double getEnrollmentMultiracialPercentage() {
+        return enrollmentMultiracialPercentage;
+    }
+
+    public void setEnrollmentMultiracialPercentage(double enrollmentMultiracialPercentage) {
+        this.enrollmentMultiracialPercentage = enrollmentMultiracialPercentage;
+    }
+
+    public int getEnrollmentEnglishLearners() {
+        return enrollmentEnglishLearners;
+    }
+
+    public void setEnrollmentEnglishLearners(int enrollmentEnglishLearners) {
+        this.enrollmentEnglishLearners = enrollmentEnglishLearners;
+    }
+
+    public double getEnrollmentEnglishLearnersPercentage() {
+        return enrollmentEnglishLearnersPercentage;
+    }
+
+    public void setEnrollmentEnglishLearnersPercentage(double enrollmentEnglishLearnersPercentage) {
+        this.enrollmentEnglishLearnersPercentage = enrollmentEnglishLearnersPercentage;
+    }
+
+    public int getEnrollmentFoster() {
+        return enrollmentFoster;
+    }
+
+    public void setEnrollmentFoster(int enrollmentFoster) {
+        this.enrollmentFoster = enrollmentFoster;
+    }
+
+    public double getEnrollmentFosterPercentage() {
+        return enrollmentFosterPercentage;
+    }
+
+    public void setEnrollmentFosterPercentage(double enrollmentFosterPercentage) {
+        this.enrollmentFosterPercentage = enrollmentFosterPercentage;
+    }
+
+    public int getEnrollmentHomeless() {
+        return enrollmentHomeless;
+    }
+
+    public void setEnrollmentHomeless(int enrollmentHomeless) {
+        this.enrollmentHomeless = enrollmentHomeless;
+    }
+
+    public double getEnrollmentHomelessPercentage() {
+        return enrollmentHomelessPercentage;
+    }
+
+    public void setEnrollmentHomelessPercentage(double enrollmentHomelessPercentage) {
+        this.enrollmentHomelessPercentage = enrollmentHomelessPercentage;
+    }
+
+    public int getEnrollmentMigrants() {
+        return enrollmentMigrants;
+    }
+
+    public void setEnrollmentMigrants(int enrollmentMigrants) {
+        this.enrollmentMigrants = enrollmentMigrants;
+    }
+
+    public double getEnrollmentMigrantsPercentage() {
+        return enrollmentMigrantsPercentage;
+    }
+
+    public void setEnrollmentMigrantsPercentage(double enrollmentMigrantsPercentage) {
+        this.enrollmentMigrantsPercentage = enrollmentMigrantsPercentage;
+    }
+
+    public int getEnrollmentWithDisabilities() {
+        return enrollmentWithDisabilities;
+    }
+
+    public void setEnrollmentWithDisabilities(int enrollmentWithDisabilities) {
+        this.enrollmentWithDisabilities = enrollmentWithDisabilities;
+    }
+
+    public double getEnrollmentWithDisabilitiesPercentage() {
+        return enrollmentWithDisabilitiesPercentage;
+    }
+
+    public void setEnrollmentWithDisabilitiesPercentage(double enrollmentWithDisabilitiesPercentage) {
+        this.enrollmentWithDisabilitiesPercentage = enrollmentWithDisabilitiesPercentage;
+    }
+
+    public int getEnrollmentSocioeconomicallyDisadvantaged() {
+        return enrollmentSocioeconomicallyDisadvantaged;
+    }
+
+    public void setEnrollmentSocioeconomicallyDisadvantaged(int enrollmentSocioeconomicallyDisadvantaged) {
+        this.enrollmentSocioeconomicallyDisadvantaged = enrollmentSocioeconomicallyDisadvantaged;
+    }
+
+    public double getEnrollmentSocioeconomicallyDisadvantagedPercentage() {
+        return enrollmentSocioeconomicallyDisadvantagedPercentage;
+    }
+
+    public void setEnrollmentSocioeconomicallyDisadvantagedPercentage(double enrollmentSocioeconomicallyDisadvantagedPercentage) {
+        this.enrollmentSocioeconomicallyDisadvantagedPercentage = enrollmentSocioeconomicallyDisadvantagedPercentage;
+    }
 
     @Override
     public String toString() {
@@ -446,7 +754,7 @@ public class DistrictArea implements Comparable<DistrictArea> {
      * Helper method that sorts County Names displayed in the corresponding Combo Box.
      */
     private static void sortCountyNameComboBoxItems() {
-        Collections.sort(HelloController.getInstance().countyNameComboBox.getItems());
+        Collections.sort(DistrictAreaController.getInstance().countyNameComboBox.getItems());
     }
 
     /**
@@ -454,15 +762,15 @@ public class DistrictArea implements Comparable<DistrictArea> {
      */
     private static void sortGeographicalLocaleComboBoxItems() {
         // Delete nulls from the list (for an unknown reason I keep getting nulls in the list)
-        HelloController.getInstance().geographicalLocaleComboBox.getItems().removeIf(Objects::isNull);
-        FXCollections.sort(HelloController.getInstance().geographicalLocaleComboBox.getItems());
+        DistrictAreaController.getInstance().geographicalLocaleComboBox.getItems().removeIf(Objects::isNull);
+        FXCollections.sort(DistrictAreaController.getInstance().geographicalLocaleComboBox.getItems());
     }
 
     /**
      * Helper method that sorts Grade Levels displayed in the corresponding Combo Box.
      */
     private static void sortGradeLevelComboBoxItems() {
-        FXCollections.sort(HelloController.getInstance().gradeLevelComboBox.getItems());
+        FXCollections.sort(DistrictAreaController.getInstance().gradeLevelComboBox.getItems());
     }
 
     /**
