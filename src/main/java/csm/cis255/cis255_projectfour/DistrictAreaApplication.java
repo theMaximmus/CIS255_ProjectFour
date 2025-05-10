@@ -42,6 +42,7 @@ public class DistrictAreaApplication extends Application {
         stage.show();
 
         controllerInstance = fxmlLoader.getController();
+        controllerInstance.textFlow.getChildren().add(new Text("PLEASE CLICK 'Load All' BUTTON FIRST"));
     }
 
     public static void main(String[] args) {
