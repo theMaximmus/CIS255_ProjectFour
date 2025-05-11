@@ -69,6 +69,7 @@ public class DistrictArea implements Comparable<DistrictArea> {
     private double enrollmentSocioeconomicallyDisadvantagedPercentage;
 
     public static List<DistrictArea> districtAreaList = new ArrayList<>();
+    public static List<DistrictArea> filteredDistrictAreaList = new ArrayList<>();
 
     public DistrictArea(int id, int federalID, int districtCode, String countyName, String districtName, String districtType,
                         GradeLevel gradeLevel, GeographicalLocale geographicalLocale, int enrollmentTotal, int enrollmentCharter,
@@ -172,11 +173,8 @@ public class DistrictArea implements Comparable<DistrictArea> {
      */
     public static void loadAllData() {
         try (Scanner fileScanner = new Scanner(new FileReader(
-                "1DistrictAreas.csv"
+                "DistrictAreasCSV.csv"
         ))) {
-            // Print a message in console indicating a successful load of the data file
-            System.out.println("Successfully loaded DistrictAreas.csv file");
-
             // Set up the mechanics of obtaining data from the file
             String line;
             while (fileScanner.hasNext()) { // Go until there is data in the source file
@@ -273,107 +271,87 @@ public class DistrictArea implements Comparable<DistrictArea> {
         }
     }
 
-    public static void fillListAndMap() {
-        try (Scanner fileScanner = new Scanner(new FileReader(
-                "1DistrictAreas.csv"
-        ))) {
-            // Print a message in console indicating a successful load of the data file
-            System.out.println("Successfully loaded DistrictAreas.csv file");
-
-            // Set up the mechanics of obtaining data from the file
-            String line;
-            while (fileScanner.hasNext()) { // Go until there is data in the source file
-                line = fileScanner.nextLine(); // Obtain one line of data
-
-                // Assuming we have perfectly formatted data
-                Scanner lineScanner = new Scanner(line);
-
-                // Read data in each single data entry by comma
-                lineScanner.useDelimiter(",");
-
-                // Write the data from the file into a single object instance
-                int id = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", "")); // last past of the line removes invisible Unicode character
-                int federalId = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
-                int districtCode = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
-                String countyName = lineScanner.next();
-                String districtName = lineScanner.next();
-                String districtType = lineScanner.next();
-                String lowGrade = lineScanner.next();
-                String highGrade = lineScanner.next();
-                GradeLevel gradeLevel = GradeLevel.determineGradeLevel(lowGrade, highGrade);
-                GeographicalLocale geographicalLocale = GeographicalLocale.determineLocale(lineScanner.next());
-                int enrollmentTotal = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
-                int enrollmentCharter = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
-                int enrollmentNonCharter = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
-                int enrollmentAfricanAmerican = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
-                double enrollmentAfricanAmericanPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
-                int enrollmentAmericanIndian = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
-                double enrollmentAmericanIndianPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
-                int enrollmentAsian = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
-                double enrollmentAsianPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
-                int enrollmentFilipino = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
-                double enrollmentFilipinoPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
-                int enrollmentHispanic = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
-                double enrollmentHispanicPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
-                int enrollmentPacificIslander = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
-                double enrollmentPacificIslanderPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
-                int enrollmentWhite = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
-                double enrollmentWhitePercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
-                int enrollmentMultiracial = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
-                double enrollmentMultiracialPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
-                int enrollmentEnglishLearners = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
-                double enrollmentEnglishLearnersPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
-                int enrollmentFoster = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
-                double enrollmentFosterPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
-                int enrollmentHomeless = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
-                double enrollmentHomelessPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
-                int enrollmentMigrants = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
-                double enrollmentMigrantsPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
-                int enrollmentWithDisabilities = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
-                double enrollmentWithDisabilitiesPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
-                int enrollmentSocioeconomicallyDisadvantaged = Integer.parseInt(lineScanner.next().replaceAll("\\uFEFF", ""));
-                double enrollmentSocioeconomicallyDisadvantagedPercentage = Double.parseDouble(lineScanner.next().replaceAll("\\uFEFF", ""));
-
-                // Create instance of the data entry
-                DistrictArea districtArea = new DistrictArea(
-                        id, federalId, districtCode, countyName, districtName, districtType, gradeLevel,
-                        geographicalLocale, enrollmentTotal, enrollmentCharter, enrollmentNonCharter, enrollmentAfricanAmerican,
-                        enrollmentAfricanAmericanPercentage, enrollmentAmericanIndian, enrollmentAmericanIndianPercentage, enrollmentAsian,
-                        enrollmentAsianPercentage, enrollmentFilipino, enrollmentFilipinoPercentage, enrollmentHispanic,
-                        enrollmentHispanicPercentage, enrollmentPacificIslander, enrollmentPacificIslanderPercentage, enrollmentWhite, enrollmentWhitePercentage,
-                        enrollmentMultiracial, enrollmentMultiracialPercentage, enrollmentEnglishLearners, enrollmentEnglishLearnersPercentage, enrollmentFoster,
-                        enrollmentFosterPercentage, enrollmentHomeless, enrollmentHomelessPercentage, enrollmentMigrants, enrollmentMigrantsPercentage, enrollmentWithDisabilities,
-                        enrollmentWithDisabilitiesPercentage, enrollmentSocioeconomicallyDisadvantaged, enrollmentSocioeconomicallyDisadvantagedPercentage
-                );
-
-                // Add the District Area to the list (districtAreaList)
-                districtAreaList.add(districtArea);
-
-                // Add the District's County Name to the ComboBox list by checking if it is already there
-                DistrictAreaApplication.uniqueCounties.add(countyName);
-
-                // Add the District's Geographical Locale to the ComboBox list by checking if it is already there
-                if (!DistrictAreaController.getInstance().geographicalLocaleComboBox.getItems().contains(geographicalLocale)) {
-                    DistrictAreaController.getInstance().addItemToGeographicalLocaleComboBox(geographicalLocale);
-                    // Sort each time new entry is added
-                    sortGeographicalLocaleComboBoxItems();
-                }
-
-                // Add the District's Grade Level to the ComboBox list by checking if it is already there
-                if (!DistrictAreaController.getInstance().gradeLevelComboBox.getItems().contains(gradeLevel)) {
-                    DistrictAreaController.getInstance().addItemToGradeLevelComboBox(gradeLevel);
-                    // Sort each time new entry is added
-                    sortGradeLevelComboBoxItems();
-                }
+    public static void searchAndListDataByCountyGradeLocale(String countyName, String geographicalLocale, String gradeLevel) {
+        // Load all data first
+        loadAllData();
+        // Filter all data accordingly to the given filters
+        for (DistrictArea districtArea : districtAreaList) {
+            if (districtArea.getCountyName().contentEquals(countyName)
+                    && districtArea.getGeographicalLocale().toString().contentEquals(geographicalLocale)
+                    && districtArea.getGradeLevel().toString().contentEquals(gradeLevel)) {
+                filteredDistrictAreaList.add(districtArea);
             }
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         }
     }
 
-    // TODO Write getters and setters (validity checking + explain omitted ones)
+    public static void searchAndListDataByCountyGrade(String countyName, String gradeLevel) {
+        // Load all data first
+        loadAllData();
+        // Filter all data accordingly to the given filters
+        for (DistrictArea districtArea : districtAreaList) {
+            if (districtArea.getCountyName().contentEquals(countyName)
+                    && districtArea.getGradeLevel().toString().contentEquals(gradeLevel)) {
+                filteredDistrictAreaList.add(districtArea);
+            }
+        }
+    }
 
+    public static void searchAndListDataByCountyLocale(String countyName, String geographicalLocale) {
+        // Load all data first
+        loadAllData();
+        // Filter all data accordingly to the given filters
+        for (DistrictArea districtArea : districtAreaList) {
+            if (districtArea.getCountyName().contentEquals(countyName)
+                    && districtArea.getGeographicalLocale().toString().contentEquals(geographicalLocale)) {
+                filteredDistrictAreaList.add(districtArea);
+            }
+        }
+    }
+
+    public static void searchAndListDataByGradeLocale(String gradeLevel, String geographicalLocale) {
+        // Load all data first
+        loadAllData();
+        // Filter all data accordingly to the given filters
+        for (DistrictArea districtArea : districtAreaList) {
+            if (districtArea.getGradeLevel().toString().contentEquals(gradeLevel)
+                    && districtArea.getGeographicalLocale().toString().contentEquals(geographicalLocale)) {
+                filteredDistrictAreaList.add(districtArea);
+            }
+        }
+    }
+
+    public static void searchAndListDataByCounty(String countyName) {
+        // Load all data first
+        loadAllData();
+        // Filter all data accordingly to the given filters
+        for (DistrictArea districtArea : districtAreaList) {
+            if (districtArea.getCountyName().contentEquals(countyName)) {
+                filteredDistrictAreaList.add(districtArea);
+            }
+        }
+    }
+
+    public static void searchAndListDataByLocale(String geographicalLocale) {
+        // Load all data first
+        loadAllData();
+        // Filter all data accordingly to the given filters
+        for (DistrictArea districtArea : districtAreaList) {
+            if (districtArea.getGeographicalLocale().toString().contentEquals(geographicalLocale)) {
+                filteredDistrictAreaList.add(districtArea);
+            }
+        }
+    }
+
+    public static void searchAndListDataByGrade(String gradeLevel) {
+        // Load all data first
+        loadAllData();
+        // Filter all data accordingly to the given filters
+        for (DistrictArea districtArea : districtAreaList) {
+            if (districtArea.getGradeLevel().toString().contentEquals(gradeLevel)) {
+                filteredDistrictAreaList.add(districtArea);
+            }
+        }
+    }
 
     public int getId() {
         return id;
