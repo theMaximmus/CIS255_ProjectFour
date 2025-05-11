@@ -747,14 +747,40 @@ public class DistrictArea implements Comparable<DistrictArea> {
 
     @Override
     public int compareTo(DistrictArea o) {
-        return 0;
+        return this.districtName.compareToIgnoreCase(o.districtName);
+    }
+
+    public static class DistrictNameComparator implements Comparator<DistrictArea> {
+        @Override
+        public int compare(DistrictArea a, DistrictArea b) {
+            return a.districtName.compareToIgnoreCase(b.districtName);
+        }
+    }
+    
+    public static class CountyNameComparator implements Comparator<DistrictArea> {
+        @Override
+        public int compare(DistrictArea a, DistrictArea b) {
+            int countyCompare = a.countyName.compareToIgnoreCase(b.countyName);
+            return countyCompare != 0 ? countyCompare : 
+                   a.districtName.compareToIgnoreCase(b.districtName);
+        }
+    }
+    
+    public static class EnrollmentComparator implements Comparator<DistrictArea> {
+        @Override
+        public int compare(DistrictArea a, DistrictArea b) {
+            return Integer.compare(b.enrollmentTotal, a.enrollmentTotal); 
+        }
     }
 
     /**
      * Helper method that sorts County Names displayed in the corresponding Combo Box.
      */
     private static void sortCountyNameComboBoxItems() {
-        Collections.sort(DistrictAreaController.getInstance().countyNameComboBox.getItems());
+        FXCollections.sort(
+            DistrictAreaController.getInstance().countyNameComboBox.getItems(),
+            String.CASE_INSENSITIVE_ORDER
+        );
     }
 
     /**
@@ -762,15 +788,20 @@ public class DistrictArea implements Comparable<DistrictArea> {
      */
     private static void sortGeographicalLocaleComboBoxItems() {
         // Delete nulls from the list (for an unknown reason I keep getting nulls in the list)
-        DistrictAreaController.getInstance().geographicalLocaleComboBox.getItems().removeIf(Objects::isNull);
-        FXCollections.sort(DistrictAreaController.getInstance().geographicalLocaleComboBox.getItems());
+        DistrictAreaController.getInstance()
+            .geographicalLocaleComboBox.getItems().removeIf(Objects::isNull);
+        FXCollections.sort(
+            DistrictAreaController.getInstance().geographicalLocaleComboBox.getItems()
+        );
     }
 
     /**
      * Helper method that sorts Grade Levels displayed in the corresponding Combo Box.
      */
     private static void sortGradeLevelComboBoxItems() {
-        FXCollections.sort(DistrictAreaController.getInstance().gradeLevelComboBox.getItems());
+        FXCollections.sort(
+            DistrictAreaController.getInstance().gradeLevelComboBox.getItems()
+        );
     }
 
     /**

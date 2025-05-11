@@ -10,6 +10,8 @@ import javafx.scene.text.TextFlow;
 
 import static csm.cis255.cis255_projectfour.DistrictArea.districtAreaList;
 
+import java.util.Collections;
+
 public class DistrictAreaController {
     private static DistrictAreaController instance;
 
@@ -49,7 +51,10 @@ public class DistrictAreaController {
     @FXML
     protected void onSearchButtonClick() {
         DistrictArea.fillListAndMap();
-        for (DistrictArea districtArea : districtAreaList) {
+
+        Collections.sort(DistrictArea.districtAreaList); //compareTo
+
+        for (DistrictArea districtArea : DistrictArea.districtAreaList) {
             textFlow.getChildren().add(new Text(districtArea.toString()));
             Separator horizontalSeparator = new Separator(Orientation.HORIZONTAL);
             horizontalSeparator.setMinWidth(textFlow.getWidth());
@@ -64,6 +69,8 @@ public class DistrictAreaController {
     @FXML
     protected void onLoadAllButtonClick() {
         DistrictArea.loadAllData();
+        Collections.sort(DistrictArea.districtAreaList); //compareTo
+
         for (DistrictArea districtArea : districtAreaList) {
             textFlow.getChildren().add(new Text(districtArea.toString()));
             Separator horizontalSeparator = new Separator(Orientation.HORIZONTAL);
